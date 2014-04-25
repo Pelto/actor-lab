@@ -1,6 +1,6 @@
 # Leaderboard
 
-This is a small labb on how to use actors.
+This is a small lab on how to use actors.
 
 ## Requirements
 The following is needed:
@@ -8,9 +8,13 @@ o
 * Java 7
 * Gradle
 
-If you do not have gradle installed, simply use the gradle wrapper
-(`./gradlew`). If you want to use Java 8 you can change gradle file to compile
-with Java 8 instead.
+If you do not have Gradle installed, simply use the Gradle wrapper
+(`./gradlew`).
+
+If you want to use Java 8 instead all you have to do is to change Gradle file
+to compile with Java 8.
+
+
 
 ## Lab instructions
 
