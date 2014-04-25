@@ -11,4 +11,21 @@ public class RequestTopScore {
     }
 
     public Level level() { return level; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RequestTopScore that = (RequestTopScore) o;
+
+        if (!level.equals(that.level)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return level.hashCode();
+    }
 }

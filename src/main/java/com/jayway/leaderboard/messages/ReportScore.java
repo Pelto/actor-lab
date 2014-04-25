@@ -15,4 +15,21 @@ public class ReportScore implements Serializable {
     public Score score() {
         return score;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ReportScore that = (ReportScore) o;
+
+        if (!score.equals(that.score)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return score.hashCode();
+    }
 }

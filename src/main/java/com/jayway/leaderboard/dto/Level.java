@@ -13,4 +13,21 @@ public class Level {
     }
 
     public String name() { return name; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Level level = (Level) o;
+
+        if (!name.equals(level.name)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
 }
