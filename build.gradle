@@ -1,0 +1,47 @@
+apply plugin: 'java'
+apply plugin: 'gradle-one-jar'
+apply plugin: 'application'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.github.rholder:gradle-one-jar:1.0.3'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+mainClassName = 'com.jayway.leaderboard.LeaderboardApplication'
+
+sourceCompatibility = JavaVersion.VERSION_1_7
+targetCompatibility = JavaVersion.VERSION_1_7
+
+ext.versionsAkka = '2.3.2'
+ext.versionsDropwizard = '0.7.0'
+ext.versionRestAssured = '2.3.1'
+
+dependencies {
+
+    compile "com.typesafe.akka:akka-actor_2.10:${versionsAkka}"
+    compile "io.dropwizard:dropwizard-core:${versionsDropwizard}"
+
+    testCompile "com.typesafe.akka:akka-testkit_2.10:${versionsAkka}"
+    testCompile "junit:junit:4.11"
+}
+
+run {
+    args 'server', './src/main/dist/configuration.yml'
+}
+
+task oneJar(type: OneJar) {
+    mainClass = mainClassName
+}
+
+artifacts {
+    oneJar
+}

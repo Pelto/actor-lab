@@ -1,0 +1,9 @@
+# Project files
+.idea
+.eclipse
+.classpath
+*.iml
+
+# Gradle files
+build/
+.gradle

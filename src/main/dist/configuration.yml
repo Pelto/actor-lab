@@ -1,0 +1,3 @@
+requestTimeout: 1000
+
+akkaConfigurationFile: src/main/dist/akka.conf
