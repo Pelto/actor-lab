@@ -9,14 +9,14 @@ import javax.validation.constraints.Min;
 public class LeaderboardConfiguration extends Configuration {
 
     @JsonProperty
-    @Min(1)
-    private int requestTimeout;
+    @Min(1L)
+    private long requestTimeout;
 
     @NotEmpty
     @JsonProperty
     private String akkaConfigurationFile;
 
-    public int requestTimeout() {
+    public long requestTimeout() {
         return requestTimeout;
     }
 
