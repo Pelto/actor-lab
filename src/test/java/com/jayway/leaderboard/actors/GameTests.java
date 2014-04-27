@@ -66,6 +66,16 @@ public class GameTests extends TestSupport{
                     assertThat(verificationRequest.accessToken(), equalTo(message.score().accessToken()));
                     reply(UserVerifiedResponse.Valid);
 
+                    // We sleep for a while to allow all our high scores to be processed.
+                    // If you do block the game actor when you do the verification of the
+                    // access token this won't matter. However if you choose to do a future
+                    // instead then all the scores might not have been processed yet.
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
                     gameActor.tell(new RequestTopScore(level), getRef());
                     TopScores topScores = expectMsgClass(TopScores.class);
 
@@ -88,6 +98,16 @@ public class GameTests extends TestSupport{
                     ReportScore message = new ReportScore(level, new Score(new AccessToken(), 100));
 
                     gameActor.tell(message, getRef());
+
+                    // We sleep for a while to allow all our high scores to be processed.
+                    // If you do block the game actor when you do the verification of the
+                    // access token this won't matter. However if you choose to do a future
+                    // instead then all the scores might not have been processed yet.
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
                     gameActor.tell(new RequestTopScore(level), getRef());
                     TopScores topScores = expectMsgClass(TopScores.class);
@@ -116,6 +136,16 @@ public class GameTests extends TestSupport{
                     gameActor.tell(highScore, getRef());
                     gameActor.tell(lowScore, getRef());
 
+                    // We sleep for a while to allow all our high scores to be processed.
+                    // If you do block the game actor when you do the verification of the
+                    // access token this won't matter. However if you choose to do a future
+                    // instead then all the scores might not have been processed yet.
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
                     gameActor.tell(new RequestTopScore(level), getRef());
                     TopScores topScores = expectMsgClass(TopScores.class);
 
@@ -140,6 +170,16 @@ public class GameTests extends TestSupport{
                     for (int i = 0; i <= 20; i++) {
                         ReportScore message = new ReportScore(level, new Score(new AccessToken(), i));
                         gameActor.tell(message, getRef());
+                    }
+
+                    // We sleep for a while to allow all our high scores to be processed.
+                    // If you do block the game actor when you do the verification of the
+                    // access token this won't matter. However if you choose to do a future
+                    // instead then all the scores might not have been processed yet.
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
 
                     gameActor.tell(new RequestTopScore(level), getRef());
