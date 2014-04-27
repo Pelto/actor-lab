@@ -3,6 +3,7 @@ package com.jayway.leaderboard.actors;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
+import akka.dispatch.OnComplete;
 import akka.pattern.Patterns;
 import akka.util.Timeout;
 import com.jayway.leaderboard.dto.Level;
@@ -12,7 +13,6 @@ import com.jayway.leaderboard.messages.RequestTopScoreMessage;
 import com.jayway.leaderboard.messages.UserVerifiedResponse;
 import com.jayway.leaderboard.messages.VerifyAccessTokenMessage;
 import scala.Option;
-import scala.concurrent.Await;
 import scala.concurrent.Future;
 import scala.concurrent.duration.Duration;
 
@@ -53,12 +53,22 @@ public class GameActor extends UntypedActor {
         Timeout t = new Timeout(Duration.create(5, TimeUnit.SECONDS));
         Future<Object> verify = Patterns.ask(usersActor, verifyUserRequest, t);
 
-        UserVerifiedResponse response = (UserVerifiedResponse) Await.result(verify, Duration.create(1, TimeUnit.SECONDS));
+        verify.andThen(
+                reportScoreToLevel(actorForLevel(message.level()), message.score()),
+                context().system().dispatcher());
+    }
 
-        if (response.verifiedUser().isPresent()) {
-            ActorRef levelActor = actorForLevel(message.level());
-            levelActor.tell(new Score(response.verifiedUser().get(), message.score()), self());
-        }
+    private final OnComplete<Object> reportScoreToLevel(final ActorRef levelActor, final int score) {
+        return new OnComplete<Object>() {
+            @Override
+            public void onComplete(Throwable failure, Object success) throws Throwable {
+                UserVerifiedResponse response = (UserVerifiedResponse)success;
+
+                if (response.verifiedUser().isPresent()) {
+                    levelActor.tell(new Score(response.verifiedUser().get(), score), self());
+                }
+            }
+        };
     }
 
     private ActorRef actorForLevel(Level level) {
