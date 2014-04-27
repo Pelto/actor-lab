@@ -39,7 +39,8 @@ public class GameTests extends TestSupport{
             new Within(duration("2 second")) {
                 @Override
                 protected void run() {
-                    ActorRef gameActor = system.actorOf(Props.create(GameActor.class, getRef()));
+                    ActorRef userActor = createUserMock(system, UserVerifiedResponse.Valid);
+                    ActorRef gameActor = system.actorOf(Props.create(GameActor.class, userActor));
                     gameActor.tell(new ReportScore(new Level("level"), new Score(new AccessToken(), 100)), ActorRef.noSender());
                     expectNoMsg();
                 }
