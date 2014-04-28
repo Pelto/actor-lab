@@ -43,6 +43,28 @@ To run all the test cases use the following gradle command:
 Newer versions of Intellij have execellent support for Gradle and you can import
 the application as a project by just pointing out the `build.gradle` file.
 
+The startup class for the application can be found in `LeaderboardApplication`
+and is responsible for creating up our Actor system and our Jersey resources.
+The application is structured as follows:
+
+      └── com.jayway.leaderboard
+          ├── actors
+          ├── dto
+          ├── health
+          ├── http
+          ├── infrastructure
+          └── messages
+
+ Package       | Content
+-------------  | -------------
+actors         | This package contains all our actors.
+dto            | This package contains all our plain old java objects. Every dto used is immutable.
+health         | This package contains our health checks, at the moment we only have one that checks that our `ActorSystem` is alive
+http           | This package contains all our Jersey resources.
+infrastructure | This package contains various infrastrcture, right now it only contains a managed wrapper that control the lifecycle of our `ActorSystem`
+messages       | This package contains our messages that we send between our actors.
+
+
 ### Instructions
 
 To complete the lab follow the these steps:
