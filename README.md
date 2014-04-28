@@ -15,7 +15,6 @@ If you want to use Java 8 instead all you have to do is to change Gradle file
 to compile with Java 8.
 
 
-
 ## Lab instructions
 
 In this lab you will finish the implementation of a small service where users
@@ -32,6 +31,19 @@ for the HTTP service.
 * [Link to Akka's documentation](http://doc.akka.io/docs/akka/2.3.2/java.html)
 
 * [Link to Dropwizard's documentation](http://dropwizard.readthedocs.org/en/latest/getting-started.html)
+
+To start the application type in the following command:
+
+    ./gradlew run
+
+To run all the test cases use the following gradle command:
+
+    ./gradlew test
+
+Newer versions of Intellij have execellent support for Gradle and you can import
+the application as a project by just pointing out the `build.gradle` file.
+
+### Instructions
 
 To complete the lab follow the these steps:
 
