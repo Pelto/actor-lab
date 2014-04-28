@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This holds the top scores for a certain level.
+ */
 public class TopScores {
 
     private List<Score> scores;

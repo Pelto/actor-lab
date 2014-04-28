@@ -6,7 +6,11 @@ import com.jayway.leaderboard.dto.Level;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class ReportScore implements Serializable {
+/**
+ * This message is sent to the Game actor when we are reporting a score. This
+ * message does not have a associated response.
+ */
+public class ReportScoreMessage implements Serializable {
 
     private final int score;
 
@@ -14,7 +18,7 @@ public class ReportScore implements Serializable {
 
     private final AccessToken token;
 
-    public ReportScore(Level level, int score, AccessToken token) {
+    public ReportScoreMessage(Level level, int score, AccessToken token) {
         this.score = score;
         this.level = level;
         this.token = token;
@@ -33,7 +37,7 @@ public class ReportScore implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ReportScore that = (ReportScore) o;
+        ReportScoreMessage that = (ReportScoreMessage) o;
 
         if (score != that.score) return false;
         if (!level.equals(that.level)) return false;

@@ -6,8 +6,8 @@ import akka.actor.Inbox;
 import com.jayway.leaderboard.dto.AccessToken;
 import com.jayway.leaderboard.dto.Level;
 import com.jayway.leaderboard.dto.TopScores;
-import com.jayway.leaderboard.messages.ReportScore;
-import com.jayway.leaderboard.messages.RequestTopScore;
+import com.jayway.leaderboard.messages.ReportScoreMessage;
+import com.jayway.leaderboard.messages.RequestTopScoreMessage;
 import scala.concurrent.duration.Duration;
 
 import javax.ws.rs.GET;
@@ -45,7 +45,7 @@ public class Levels {
         AccessToken token = AccessToken.fromString(accessToken);
         int score = Integer.parseInt(body);
 
-        gameActor.tell(new ReportScore(level, score, token), ActorRef.noSender());
+        gameActor.tell(new ReportScoreMessage(level, score, token), ActorRef.noSender());
 
         return Response.ok().build();
     }
@@ -54,7 +54,7 @@ public class Levels {
     @Path("/highscorelist")
     @Produces(MediaType.APPLICATION_JSON)
     public Response highscoreList(@PathParam("levelid") String levelId) {
-        RequestTopScore message = new RequestTopScore(new Level(levelId));
+        RequestTopScoreMessage message = new RequestTopScoreMessage(new Level(levelId));
 
         Inbox inbox = Inbox.create(system);
         inbox.send(gameActor, message);

@@ -2,6 +2,13 @@ package com.jayway.leaderboard.messages;
 
 import com.google.common.base.Optional;
 
+/**
+ * This is the response that the UsersActor sends when a
+ * <code>VerifyAccessTokenMessage</code> message has been received. If there is
+ * a user with the given <code>AccessToken</code> available a
+ * <code>UserVerifiedResponse.verified(user)</code> is returned, otherwise
+ * <code>UserVerifiedResponse.notVerified()</code> is returned.
+ */
 public class UserVerifiedResponse {
 
     private final Optional<String> verifiedUser;

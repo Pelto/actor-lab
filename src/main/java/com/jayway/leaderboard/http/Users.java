@@ -4,7 +4,7 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Inbox;
 import com.jayway.leaderboard.dto.AccessToken;
-import com.jayway.leaderboard.messages.LoginUser;
+import com.jayway.leaderboard.messages.LoginUserMessage;
 import scala.concurrent.duration.Duration;
 
 import javax.ws.rs.GET;
@@ -31,7 +31,7 @@ public class Users {
     @GET
     @Path("/login")
     public Response login(@PathParam("userid") String user) {
-        LoginUser message = new LoginUser(user);
+        LoginUserMessage message = new LoginUserMessage(user);
         Inbox inbox = Inbox.create(system);
 
         inbox.send(userActor, message);

@@ -2,15 +2,19 @@ package com.jayway.leaderboard.dto;
 
 import java.util.UUID;
 
+/**
+ * This is a access token that holds a key that is generated
+ * by our user actor.
+ */
 public class AccessToken {
 
     private final UUID key;
 
-    public AccessToken() {
+    private AccessToken() {
         this.key = UUID.randomUUID();
     }
 
-    public AccessToken(UUID key) {
+    private AccessToken(UUID key) {
         this.key = key;
     }
 
@@ -33,6 +37,10 @@ public class AccessToken {
 
     public UUID key() {
         return key;
+    }
+
+    public static AccessToken newToken() {
+        return new AccessToken();
     }
 
     public static AccessToken fromString(String token) {

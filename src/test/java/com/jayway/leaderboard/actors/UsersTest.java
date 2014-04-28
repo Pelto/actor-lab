@@ -5,9 +5,9 @@ import akka.actor.ActorSystem;
 import akka.actor.Props;
 import akka.testkit.JavaTestKit;
 import com.jayway.leaderboard.dto.AccessToken;
-import com.jayway.leaderboard.messages.LoginUser;
+import com.jayway.leaderboard.messages.LoginUserMessage;
 import com.jayway.leaderboard.messages.UserVerifiedResponse;
-import com.jayway.leaderboard.messages.VerifyUser;
+import com.jayway.leaderboard.messages.VerifyAccessTokenMessage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,11 +37,11 @@ public class UsersTest {
             new Within(duration("1 second")) {
                 @Override
                 protected void run() {
-                    usersActor.tell(new LoginUser("test"), getRef());
+                    usersActor.tell(new LoginUserMessage("test"), getRef());
 
                     AccessToken key = expectMsgClass(AccessToken.class);
 
-                    usersActor.tell(new VerifyUser(key), getRef());
+                    usersActor.tell(new VerifyAccessTokenMessage(key), getRef());
 
                     expectMsgEquals(UserVerifiedResponse.verified("test"));
                 }
@@ -55,7 +55,7 @@ public class UsersTest {
             new Within(duration("1 second")) {
                 @Override
                 protected void run() {
-                    usersActor.tell(new VerifyUser(new AccessToken()), getRef());
+                    usersActor.tell(new VerifyAccessTokenMessage(AccessToken.newToken()), getRef());
                     expectMsgEquals(UserVerifiedResponse.notVerified());
                 }
             };
@@ -68,7 +68,7 @@ public class UsersTest {
             new Within(duration("1 second")) {
                 @Override
                 protected void run() {
-                    usersActor.tell(new LoginUser("test"), getRef());
+                    usersActor.tell(new LoginUserMessage("test"), getRef());
 
                     AccessToken key = expectMsgClass(AccessToken.class);
 
@@ -78,7 +78,7 @@ public class UsersTest {
                         e.printStackTrace();
                     }
 
-                    usersActor.tell(new VerifyUser(key), getRef());
+                    usersActor.tell(new VerifyAccessTokenMessage(key), getRef());
 
                     expectMsgEquals(UserVerifiedResponse.notVerified());
                 }

@@ -4,6 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
 
+/**
+ * This represents a score that is reported by a player.
+ *
+ * Note that once a score is reported you have to look up the user
+ * by verifying the access token
+ */
 public class Score implements Comparable<Score> {
 
     private final String user;
