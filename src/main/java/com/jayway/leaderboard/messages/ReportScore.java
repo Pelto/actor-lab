@@ -37,7 +37,7 @@ public class ReportScore implements Serializable {
 
         if (score != that.score) return false;
         if (!level.equals(that.level)) return false;
-        if (!level.equals(that.level)) return false;
+        if (!token.equals(that.token)) return false;
 
         return true;
     }

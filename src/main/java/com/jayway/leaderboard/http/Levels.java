@@ -5,7 +5,6 @@ import akka.actor.ActorSystem;
 import akka.actor.Inbox;
 import com.jayway.leaderboard.dto.AccessToken;
 import com.jayway.leaderboard.dto.Level;
-import com.jayway.leaderboard.dto.Score;
 import com.jayway.leaderboard.dto.TopScores;
 import com.jayway.leaderboard.messages.ReportScore;
 import com.jayway.leaderboard.messages.RequestTopScore;
