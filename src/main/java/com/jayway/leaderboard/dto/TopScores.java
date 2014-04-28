@@ -1,18 +1,19 @@
 package com.jayway.leaderboard.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 public class TopScores {
 
-    private SortedSet<Score> scores;
+    private List<Score> scores;
 
     public TopScores(List<Score> scores) {
-        this.scores = new TreeSet<Score>();
+        this.scores = new ArrayList<Score>();
         this.scores.addAll(scores);
     }
 
-    public SortedSet<Score> scores() { return scores; }
+    @JsonProperty
+    public List<Score> scores() { return scores; }
 }

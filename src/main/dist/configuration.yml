@@ -1,3 +1,5 @@
 requestTimeout: 1000
 
+loginTimeInMillis: 600000
+
 akkaConfigurationFile: src/main/dist/akka.conf

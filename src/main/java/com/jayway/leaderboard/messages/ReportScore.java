@@ -1,27 +1,32 @@
 package com.jayway.leaderboard.messages;
 
+import com.jayway.leaderboard.dto.AccessToken;
 import com.jayway.leaderboard.dto.Level;
-import com.jayway.leaderboard.dto.Score;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 public class ReportScore implements Serializable {
 
-    private final Score score;
+    private final int score;
 
     private final Level level;
 
-    public ReportScore(Level level, Score score) {
+    private final AccessToken token;
+
+    public ReportScore(Level level, int score, AccessToken token) {
         this.score = score;
         this.level = level;
+        this.token = token;
     }
 
-    public Score score() {
+    public int score() {
         return score;
     }
 
     public Level level() { return level; }
+
+    public AccessToken accessToken() { return token; }
 
     @Override
     public boolean equals(Object o) {
@@ -30,7 +35,8 @@ public class ReportScore implements Serializable {
 
         ReportScore that = (ReportScore) o;
 
-        if (!score.equals(that.score)) return false;
+        if (score != that.score) return false;
+        if (!level.equals(that.level)) return false;
         if (!level.equals(that.level)) return false;
 
         return true;
@@ -38,6 +44,6 @@ public class ReportScore implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(score, level);
+        return Objects.hash(score, level, token);
     }
 }

@@ -11,12 +11,17 @@ import com.jayway.leaderboard.messages.VerifyUser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import scala.concurrent.duration.Duration;
+
+import java.util.concurrent.TimeUnit;
 
 public class UsersTest {
 
     private ActorRef usersActor;
 
     private ActorSystem system;
+
+    private Duration tokenTime = Duration.create(100, TimeUnit.MILLISECONDS);
 
     @Before
     public void setupSystem() {
@@ -35,13 +40,13 @@ public class UsersTest {
             new Within(duration("1 second")) {
                 @Override
                 protected void run() {
-                    usersActor.tell(new LoginUser(), getRef());
+                    usersActor.tell(new LoginUser("test"), getRef());
 
                     AccessToken key = expectMsgClass(AccessToken.class);
 
                     usersActor.tell(new VerifyUser(key), getRef());
 
-                    expectMsgEquals(UserVerifiedResponse.Valid);
+                    expectMsgEquals(UserVerifiedResponse.verified("test"));
                 }
             };
         }};
@@ -54,7 +59,31 @@ public class UsersTest {
                 @Override
                 protected void run() {
                     usersActor.tell(new VerifyUser(new AccessToken()), getRef());
-                    expectMsgEquals(UserVerifiedResponse.Invalid);
+                    expectMsgEquals(UserVerifiedResponse.notVerified());
+                }
+            };
+        }};
+    }
+
+    @Test
+    public void tokenBecomesInvalid() {
+        new JavaTestKit(system) {{
+            new Within(duration("1 second")) {
+                @Override
+                protected void run() {
+                    usersActor.tell(new LoginUser("test"), getRef());
+
+                    AccessToken key = expectMsgClass(AccessToken.class);
+
+                    try {
+                        Thread.sleep(tokenTime.toMillis());
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    usersActor.tell(new VerifyUser(key), getRef());
+
+                    expectMsgEquals(UserVerifiedResponse.notVerified());
                 }
             };
         }};

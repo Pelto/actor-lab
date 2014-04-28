@@ -16,9 +16,16 @@ public class LeaderboardConfiguration extends Configuration {
     @JsonProperty
     private String akkaConfigurationFile;
 
+    @NotEmpty
+    @JsonProperty
+    @Min(1L)
+    private long loginTimeInMillis;
+
     public long requestTimeout() {
         return requestTimeout;
     }
 
     public String akkaConfigurationFile() { return akkaConfigurationFile; }
+
+    public long loginTimeInMillis() { return loginTimeInMillis; }
 }

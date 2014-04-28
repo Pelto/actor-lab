@@ -36,17 +36,15 @@ public class Levels {
 
     @POST
     @Path("/score")
-    public Response postScore(@QueryParam("sessionKey") String sessionKey,
+    public Response postScore(@QueryParam("sessionKey") String accessToken,
                               @PathParam("levelid") String levelId,
                               String body) {
 
-        Score scoreToReport = new Score(
-                AccessToken.fromString(sessionKey),
-                Integer.parseInt(body));
-
         Level level = new Level(levelId);
+        AccessToken token = AccessToken.fromString(accessToken);
+        int score = Integer.parseInt(body);
 
-        gameActor.tell(new ReportScore(level, scoreToReport), ActorRef.noSender());
+        gameActor.tell(new ReportScore(level, score, token), ActorRef.noSender());
 
         return Response.ok().build();
     }

@@ -14,7 +14,6 @@ import com.typesafe.config.ConfigFactory;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import scala.sys.Prop;
 
 import java.io.File;
 
@@ -39,7 +38,7 @@ public class LeaderboardApplication extends Application<LeaderboardConfiguration
 
         // Set up our resources
         Levels scoresResource = new Levels(scoresActor, system, configuration.requestTimeout());
-        Users usersResource = new Users(system, usersActor, configuration.requestTimeout());
+        Users usersResource = new Users(system, usersActor, configuration.loginTimeInMillis());
 
         // Register our actor system and resources in Dropwizard
         environment.lifecycle().manage(new ManagedActorSystem(system));
