@@ -34,4 +34,37 @@ for the HTTP service.
 * [Link to Dropwizard's documentation](http://dropwizard.readthedocs.org/en/latest/getting-started.html)
 
 
-### The API
+## The API
+
+The game will need the following API to function:
+
+### Login
+
+When a user posts his or her's score they need to do so with a active
+`accessToken`. To retrieve a `accessToken`
+
+    Path: /user/{user}/login
+    Method: GET
+    returns: A access token for the user
+
+    curl -i -H "Accept: text/plain" -H "Content-Type: text/plain" http://127.0.0.1/user/me/login
+
+### Posting a score
+
+Using their API key the user can then post a score to their levels. Only one
+score per user should be saved.
+
+    Path: /level/{level}/score
+    Method: POST
+    Returns: status 200
+
+    curl --data "<score>" http://127.0.0.1:8080/level/<level-name>/score?accessToken=<token>
+
+
+### Retreiving the highscore
+
+    Path /level/{level}/highscorelist
+    Method: GET
+    returns: application/json
+
+    curl -i -H "Accept: application/json" -H "Content-Type: application/json" http://127.0.0.1/level/<level>/highscorelist
