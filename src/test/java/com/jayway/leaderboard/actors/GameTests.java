@@ -77,6 +77,7 @@ public class GameTests {
 
                     // The user is verified with our user actor
                     VerifyUser verificationRequest = expectMsgClass(VerifyUser.class);
+
                     assertThat(verificationRequest.accessToken(), equalTo(message.accessToken()));
 
                     reply(UserVerifiedResponse.verified("mocked-user"));
@@ -197,8 +198,8 @@ public class GameTests {
                     TopScores topScores = expectMsgClass(TopScores.class);
 
                     assertThat(topScores.scores().size(), equalTo(15));
-                    assertThat(topScores.scores().get(6).score(), equalTo(6));
-                    assertThat(topScores.scores().get(20).score(), equalTo(20));
+                    assertThat(topScores.scores().get(0).score(), equalTo(20));
+                    assertThat(topScores.scores().get(14).score(), equalTo(6));
                 }
             };
         }};

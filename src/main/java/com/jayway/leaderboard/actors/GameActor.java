@@ -5,6 +5,7 @@ import akka.actor.UntypedActor;
 import com.jayway.leaderboard.messages.ReportScore;
 import com.jayway.leaderboard.messages.RequestTopScore;
 
+
 public class GameActor extends UntypedActor {
 
     private final ActorRef usersActor;

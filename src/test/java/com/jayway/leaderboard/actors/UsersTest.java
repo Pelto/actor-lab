@@ -11,9 +11,6 @@ import com.jayway.leaderboard.messages.VerifyUser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import scala.concurrent.duration.Duration;
-
-import java.util.concurrent.TimeUnit;
 
 public class UsersTest {
 
@@ -21,12 +18,12 @@ public class UsersTest {
 
     private ActorSystem system;
 
-    private Duration tokenTime = Duration.create(100, TimeUnit.MILLISECONDS);
+    private long tokenTimeInMillis = 500;
 
     @Before
     public void setupSystem() {
         this.system = ActorSystem.create("game");
-        this.usersActor = system.actorOf(Props.create(UsersActor.class));
+        this.usersActor = system.actorOf(Props.create(UsersActor.class, tokenTimeInMillis));
     }
 
     @After
@@ -76,7 +73,7 @@ public class UsersTest {
                     AccessToken key = expectMsgClass(AccessToken.class);
 
                     try {
-                        Thread.sleep(tokenTime.toMillis());
+                        Thread.sleep(tokenTimeInMillis + 200);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
