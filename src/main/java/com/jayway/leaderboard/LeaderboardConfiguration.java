@@ -16,7 +16,6 @@ public class LeaderboardConfiguration extends Configuration {
     @JsonProperty
     private String akkaConfigurationFile;
 
-    @NotEmpty
     @JsonProperty
     @Min(1L)
     private long loginTimeInMillis;

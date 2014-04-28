@@ -14,11 +14,13 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.concurrent.TimeUnit;
 
-@Path("/level/levelid")
+@Path("/level/{levelid}")
 public class Levels {
 
     private final ActorRef gameActor;
@@ -35,7 +37,7 @@ public class Levels {
 
     @POST
     @Path("/score")
-    public Response postScore(@QueryParam("sessionKey") String accessToken,
+    public Response postScore(@QueryParam("accessToken") String accessToken,
                               @PathParam("levelid") String levelId,
                               String body) {
 
@@ -50,7 +52,8 @@ public class Levels {
 
     @GET
     @Path("/highscorelist")
-    public Response highscoreList(@QueryParam("levelid") String levelId) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response highscoreList(@PathParam("levelid") String levelId) {
         RequestTopScore message = new RequestTopScore(new Level(levelId));
 
         Inbox inbox = Inbox.create(system);

@@ -1,4 +1,4 @@
-requestTimeout: 1000
+requestTimeout: 10000
 
 loginTimeInMillis: 600000
 

@@ -33,12 +33,12 @@ public class LeaderboardApplication extends Application<LeaderboardConfiguration
         ActorSystem system = createActorSystem(configuration);
 
         // Set up our core actors
-        ActorRef usersActor = system.actorOf(Props.create(UsersActor.class));
+        ActorRef usersActor = system.actorOf(Props.create(UsersActor.class, configuration.loginTimeInMillis()));
         ActorRef scoresActor = system.actorOf(Props.create(GameActor.class, usersActor));
 
         // Set up our resources
         Levels scoresResource = new Levels(scoresActor, system, configuration.requestTimeout());
-        Users usersResource = new Users(system, usersActor, configuration.loginTimeInMillis());
+        Users usersResource = new Users(system, usersActor, configuration.requestTimeout());
 
         // Register our actor system and resources in Dropwizard
         environment.lifecycle().manage(new ManagedActorSystem(system));
