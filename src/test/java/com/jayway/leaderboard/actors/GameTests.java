@@ -7,7 +7,7 @@ import akka.actor.Props;
 import akka.testkit.JavaTestKit;
 import com.jayway.leaderboard.dto.AccessToken;
 import com.jayway.leaderboard.dto.Level;
-import com.jayway.leaderboard.dto.TopScores;
+import com.jayway.leaderboard.messages.TopScoresResponse;
 import com.jayway.leaderboard.messages.LoginUserMessage;
 import com.jayway.leaderboard.messages.ReportScoreMessage;
 import com.jayway.leaderboard.messages.RequestTopScoreMessage;
@@ -93,7 +93,7 @@ public class GameTests {
                     }
 
                     gameActor.tell(new RequestTopScoreMessage(level), getRef());
-                    TopScores topScores = expectMsgClass(TopScores.class);
+                    TopScoresResponse topScores = expectMsgClass(TopScoresResponse.class);
 
                     assertThat(topScores.scores().size(), equalTo(1));
                 }
@@ -125,7 +125,7 @@ public class GameTests {
                     }
 
                     gameActor.tell(new RequestTopScoreMessage(level), getRef());
-                    TopScores topScores = expectMsgClass(TopScores.class);
+                    TopScoresResponse topScores = expectMsgClass(TopScoresResponse.class);
 
                     assertThat(topScores.scores().size(), equalTo(0));
                 }
@@ -161,7 +161,7 @@ public class GameTests {
                     }
 
                     gameActor.tell(new RequestTopScoreMessage(level), getRef());
-                    TopScores topScores = expectMsgClass(TopScores.class);
+                    TopScoresResponse topScores = expectMsgClass(TopScoresResponse.class);
 
                     assertThat(topScores.scores().size(), equalTo(1));
                     assertThat(topScores.scores().get(0).score(), equalTo(10));
@@ -195,7 +195,7 @@ public class GameTests {
                     }
 
                     gameActor.tell(new RequestTopScoreMessage(level), getRef());
-                    TopScores topScores = expectMsgClass(TopScores.class);
+                    TopScoresResponse topScores = expectMsgClass(TopScoresResponse.class);
 
                     assertThat(topScores.scores().size(), equalTo(15));
                     assertThat(topScores.scores().get(0).score(), equalTo(20));

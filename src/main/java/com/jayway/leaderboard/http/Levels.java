@@ -5,7 +5,7 @@ import akka.actor.ActorSystem;
 import akka.actor.Inbox;
 import com.jayway.leaderboard.dto.AccessToken;
 import com.jayway.leaderboard.dto.Level;
-import com.jayway.leaderboard.dto.TopScores;
+import com.jayway.leaderboard.messages.TopScoresResponse;
 import com.jayway.leaderboard.messages.ReportScoreMessage;
 import com.jayway.leaderboard.messages.RequestTopScoreMessage;
 import scala.concurrent.duration.Duration;
@@ -59,7 +59,7 @@ public class Levels {
         Inbox inbox = Inbox.create(system);
         inbox.send(gameActor, message);
 
-        TopScores scores = (TopScores)inbox.receive(Duration.create(requestTimeout, TimeUnit.MILLISECONDS));
+        TopScoresResponse scores = (TopScoresResponse)inbox.receive(Duration.create(requestTimeout, TimeUnit.MILLISECONDS));
 
         return Response.ok(scores).build();
     }
