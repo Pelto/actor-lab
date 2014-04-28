@@ -33,6 +33,16 @@ for the HTTP service.
 
 * [Link to Dropwizard's documentation](http://dropwizard.readthedocs.org/en/latest/getting-started.html)
 
+To complete the lab follow the these steps:
+
+  1. Fix the failing unit tests, a good tip is to start implement the
+     `UsersActor`
+
+  2. If you have time, give users notifications when a user pass their score.
+     You can add a resource at `user/<userid>/notifications` that displays
+     notifications for that user.
+
+If you get stuck there is a example solution in the branch `solution`
 
 ## The API
 
