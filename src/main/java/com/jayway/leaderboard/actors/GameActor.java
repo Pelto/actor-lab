@@ -55,7 +55,7 @@ public class GameActor extends UntypedActor {
 
         verify.andThen(
                 reportScoreToLevel(actorForLevel(message.level()), message.score()),
-                context().system().dispatcher());
+                context().dispatcher());
     }
 
     private final OnComplete<Object> reportScoreToLevel(final ActorRef levelActor, final int score) {
